@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const URL_clients = "https://157e-2806-2f0-62c1-b7d7-39e2-95e4-bd26-a5fd.ngrok-free.app/clients";
 
-const UpdateClientScreen = () => {
+const UpdateClient = () => {
     const [clientId, setClientId] = useState("");
     const [name, setName] = useState("");
     const [phone_number, setPhone] = useState("");
@@ -36,7 +36,9 @@ const UpdateClientScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Actualizar Cliente</Text>
-            {/* Botones de navegación */}
+
+            <Button title="Usuarios" onPress={() => navigation.navigate('Crear Usuario')} />
+
             <Button title="Buscar por Nombre" onPress={() => navigation.navigate('Buscar por Nombre')} />
             <Button title="Buscar por Teléfono" onPress={() => navigation.navigate('Buscar por Teléfono')} />
             <Button title="Actualizar Cliente" onPress={() => navigation.navigate('Actualizar Cliente')} />
@@ -96,4 +98,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default UpdateClientScreen;
+export default UpdateClient;

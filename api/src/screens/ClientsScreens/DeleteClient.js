@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const URL_clients = "https://157e-2806-2f0-62c1-b7d7-39e2-95e4-bd26-a5fd.ngrok-free.app/clients";
 
-const DeleteClientScreen = () => {
+const DeleteClient = () => {
     const [clientId, setClientId] = useState("");
     const navigation = useNavigation();
 
@@ -28,11 +28,14 @@ const DeleteClientScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Eliminar Cliente</Text>
-            {/* Botones de navegación */}
+
+            <Button title="Usuarios" onPress={() => navigation.navigate('Crear Usuario')} />
+
             <Button title="Buscar por Nombre" onPress={() => navigation.navigate('Buscar por Nombre')} />
             <Button title="Buscar por Teléfono" onPress={() => navigation.navigate('Buscar por Teléfono')} />
             <Button title="Actualizar Cliente" onPress={() => navigation.navigate('Actualizar Cliente')} />
             <Button title="Eliminar Cliente" onPress={() => navigation.navigate('Eliminar Cliente')} />
+            <Button title="Crear CLiente" onPress={() => navigation.navigate('Registrar Cliente')} />
 
             <TextInput
                 style={styles.input}
@@ -68,4 +71,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DeleteClientScreen;
+export default DeleteClient;

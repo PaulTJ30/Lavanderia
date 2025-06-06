@@ -5,31 +5,32 @@ import { useNavigation } from '@react-navigation/native';
 
 const URL_clients = "https://157e-2806-2f0-62c1-b7d7-39e2-95e4-bd26-a5fd.ngrok-free.app/clients";
 
-const SearchClientByPhoneScreen = () => {
-    const [phone, setPhone] = useState("");
-    const [client, setClient] = useState(null);
-const navigation = useNavigation();
+const SearchClientByName = () => {
+    const [name, setName] = useState("");
+    const [clients, setClients] = useState([]);
+    const navigation = useNavigation();
 
     const handleSearch = async () => {
-        if (!phone) {
-            Alert.alert('Error', "Debes ingresar un número de teléfono.");
+        if (!name) {
+            Alert.alert('Error', "Debes ingresar un nombre.");
             return;
         }
 
         try {
-            const res = await axios.get(`${URL_clients}/search/phone?phone=${phone}`);
-            setClient(res.data);
+            const res = await axios.get(`${URL_clients}/search/name?name=${name}`);
+            setClients(res.data);
         } catch (error) {
-            Alert.alert('Error', 'No se encontró el cliente.');
+            Alert.alert('Error', 'No se pudo encontrar clientes.');
             console.error("Error en la búsqueda:", error);
-            setClient(null);
         }
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>Buscar Cliente por Teléfono</Text>
-            {/* Botones de navegación */}
+            <Text style={styles.title}>Buscar Cliente por Nombre</Text>
+
+            <Button title="Usuarios" onPress={() => navigation.navigate('Crear Usuario')} />
+
             <Button title="Buscar por Nombre" onPress={() => navigation.navigate('Buscar por Nombre')} />
             <Button title="Buscar por Teléfono" onPress={() => navigation.navigate('Buscar por Teléfono')} />
             <Button title="Actualizar Cliente" onPress={() => navigation.navigate('Actualizar Cliente')} />
@@ -37,21 +38,22 @@ const navigation = useNavigation();
 
             <TextInput
                 style={styles.input}
-                placeholder="Número de teléfono"
-                value={phone}
-                onChangeText={text => setPhone(text)}
-                keyboardType="phone-pad"
+                placeholder="Nombre"
+                value={name}
+                onChangeText={text => setName(text)}
             />
             <Button title="Buscar" onPress={handleSearch} />
 
-            {client ? (
-                <View style={styles.clientCard}>
-                    <Text style={styles.clientText}>📌 {client.name}</Text>
-                    <Text>📞 {client.phone_number}</Text>
-                    <Text>📍 {client.address}</Text>
-                </View>
+            {clients.length > 0 ? (
+                clients.map((client, index) => (
+                    <View key={index} style={styles.clientCard}>
+                        <Text style={styles.clientText}>📌 {client.name}</Text>
+                        <Text>📞 {client.phone_number}</Text>
+                        <Text>📍 {client.address}</Text>
+                    </View>
+                ))
             ) : (
-                <Text style={styles.noResults}>No se encontraron resultados.</Text>
+                <Text style={styles.noResults}>No se encontraron clientes.</Text>
             )}
         </ScrollView>
     );
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: '#ccc',
         backgroundColor: '#f9f9f9',
-        marginTop: 10,
+        marginBottom: 10,
     },
     clientText: {
         fontWeight: 'bold',
@@ -97,4 +99,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SearchClientByPhoneScreen;
+export default SearchClientByName;

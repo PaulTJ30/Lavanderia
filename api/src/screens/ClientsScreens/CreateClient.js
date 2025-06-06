@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const URL_clients = "https://157e-2806-2f0-62c1-b7d7-39e2-95e4-bd26-a5fd.ngrok-free.app/clients";
-const CreateClientScreen = () => {
+const CreateClient = () => {
     const navigation = useNavigation();
 
     const [name, setName] = useState("");
@@ -46,11 +46,14 @@ const CreateClientScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
             <View style={styles.container}>
-                {/* Botones de navegación */}
+
+                <Button title="Usuarios" onPress={() => navigation.navigate('Crear Usuario')} />
+                <Button title="Registrar Cliente" onPress={() => navigation.navigate('Registrar Cliente')} />
                 <Button title="Buscar por Nombre" onPress={() => navigation.navigate('Buscar por Nombre')} />
                 <Button title="Buscar por Teléfono" onPress={() => navigation.navigate('Buscar por Teléfono')} />
                 <Button title="Actualizar Cliente" onPress={() => navigation.navigate('Actualizar Cliente')} />
                 <Button title="Eliminar Cliente" onPress={() => navigation.navigate('Eliminar Cliente')} />
+
 
                 <Text style={styles.title}>Registrar Cliente</Text>
 
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
     scrollViewContent: {
         flexGrow: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+
     },
     title: {
         fontSize: 26,
@@ -115,4 +118,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CreateClientScreen;
+export default CreateClient;
