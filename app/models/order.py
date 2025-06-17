@@ -9,7 +9,7 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default = datetime.now())
     estimated_delivery_date = db.Column(db.DateTime, nullable = False)
-    real_delivery_date = db.Column(db.DateTime, nullable=False)
+    real_delivery_date = db.Column(db.DateTime)
     state = db.Column(db.String(20), default="recibido")
     #Recibido --> En proceso --> Listo --> Entregado.
 
