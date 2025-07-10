@@ -8,4 +8,4 @@ class Service(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column (db.String(200))
     price = db. Column (db.Float,nullable=False)
-
+    garment_link = db.relationship("OrderDetail", backref="service", lazy=True)

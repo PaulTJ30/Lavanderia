@@ -15,3 +15,7 @@ class Order(db.Model):
 
     total= db.Column(db.Integer, nullable=False)
     pagado= db.Column(db.Boolean, nullable=False)
+
+    #Relaciones Inversas
+    garments = db. relationship("Garment", backref="order", lazy= True)
+    

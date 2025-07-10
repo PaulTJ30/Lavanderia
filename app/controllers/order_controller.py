@@ -22,6 +22,32 @@ def create_order_detail (garment_id, service_id, quantity):
     db.session.commit()
     return order_detail
 
+def get_order_detail(order_id):
+    order = Order.query.get(order_id)
+    print("ORDEEEEEEEEEEEER",order)
+    order_data = {
+        "order_id": order.id,
+        "client":order.client.name,
+        "status": order.state,
+        "garments":[]
+    }
+    for garment in order.garments:
+        garment_data= {
+            "type":garment.type,
+            "description": garment.description,
+            "observations": garment.observations,
+            "service":[]
+        }
+        for gs in garment.services:
+            service_data={
+                "name":gs.name,
+                "description": gs.descprition,
+                "price":gs.price
+            }
+            garment_data["services"].append(service_data)
+        order_data["garments"].append(garment_data)
+    return order_data
+
 def update_order_status (order_id, new_status):
     order = Order.query.get(order_id)
     if not order:
