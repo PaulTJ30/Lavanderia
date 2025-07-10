@@ -4,7 +4,7 @@ from app.models.user import User
 from app.database.db import db
 from app.controllers.user_controller import login_user,logout_user,update_user,toggle_user_status,get_user_logs
 
-user_bp = Blueprint('users',__name__, url_prefix="/users")
+user_bp = Blueprint('user_bp',__name__, url_prefix="/users")
 
 @user_bp.route("/register", methods=["POST"])
 def create_user():
