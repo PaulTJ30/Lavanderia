@@ -52,6 +52,10 @@ const CreateOrder = () => {
         setItems(updatedItems);
     };
 
+    const calculateTotal = () => {
+        return items.reduce((acc, curr) => acc + parseFloat(curr.price || 0), 0).toFixed(2);
+    };
+
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Crear Orden</Text>
@@ -123,6 +127,21 @@ const CreateOrder = () => {
                 <Icon name="plus" size={18} color="#fff" />
                 <Text style={styles.addButtonText}>Agregar otra prenda</Text>
             </TouchableOpacity>
+
+            {/* Resumen de precios */}
+            <View style={styles.summaryContainer}>
+                <Text style={styles.summaryTitle}>Resumen de la Orden</Text>
+                {items.map((item, index) => (
+                    <View key={index} style={styles.summaryItem}>
+                        <Text style={styles.summaryText}>
+                            {item.garment || 'Prenda no especificada'}: ${item.price || '0.00'}
+                        </Text>
+                    </View>
+                ))}
+                <View style={styles.totalContainer}>
+                    <Text style={styles.totalText}>Total: ${calculateTotal()}</Text>
+                </View>
+            </View>
 
             <TouchableOpacity style={styles.saveButton}>
                 <Text style={styles.saveButtonText}>Guardar Orden</Text>
@@ -207,6 +226,38 @@ const styles = StyleSheet.create({
     addButtonText: {
         color: '#fff',
         fontWeight: '700',
+    },
+    summaryContainer: {
+        backgroundColor: '#f1f1f1',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 20,
+    },
+    summaryTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    summaryItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    summaryText: {
+        fontSize: 16,
+    },
+    totalContainer: {
+        borderTopWidth: 1,
+        borderColor: '#ccc',
+        marginTop: 10,
+        paddingTop: 10,
+    },
+    totalText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'right',
+        color: '#000',
     },
     saveButton: {
         backgroundColor: '#28a745',
